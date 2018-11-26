@@ -32,7 +32,7 @@ enum PlannerError
   INVALID_ID = -11,
   INCOMPLETE_PATH = -12,
   INVALID_CONFIGURATION_PARAMETER = -13,
-  UKNOWN = -99
+  UNKNOWN = -99
 };
 }
 typedef PlannerErrors::PlannerError PlannerError;
