@@ -91,7 +91,8 @@ bool DensePlanner::updatePath()
   }
   else
   {
-    error_code_ = descartes_core::PlannerErrors::UKNOWN;
+    ROS_ERROR("Unbounded cost function");
+    error_code_ = descartes_core::PlannerErrors::UNKNOWN;
     return false;
   }
 }
