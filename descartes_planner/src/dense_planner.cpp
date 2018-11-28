@@ -91,7 +91,8 @@ bool DensePlanner::updatePath()
   }
   else
   {
-    ROS_ERROR("Unbounded cost function");
+    ROS_ERROR("Unbounded cost function.");
+    ROS_ERROR("It's possible your solution involves changing configuration, You can try the following : unset speed constraint");
     error_code_ = descartes_core::PlannerErrors::UNKNOWN;
     return false;
   }
