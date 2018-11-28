@@ -88,12 +88,32 @@ bool descartes_moveit::IkFastMoveitStateAdapter::getAllIK(const Eigen::Affine3d&
     return false;
   }
 
+  //!JMEYER fix for joints 4 and 6
+  const auto last_index = 5;
+  const auto index4 = 3;
   for (auto& sol : joint_results)
   {
-    if (isValid(sol))
-      joint_poses.push_back(std::move(sol));
-  }
 
+    const double joint6 = sol[last_index];
+    const double joint4 = sol[index4];
+
+    for (int i = -1; i <= 1; ++i)
+    {
+      sol[last_index] = joint6 + i * 2.0 * M_PI;
+      for (int j = -1; j <= 1; ++j)
+      {
+        sol[index4] = joint4 + j * 2.0 * M_PI;
+
+        if (isValid(sol)){
+          joint_poses.push_back(sol);
+          //!Okay I am not positive descartes will not output solutions past our joint limits!
+          //! This should warn us but let's be careful
+          if(sol[index4]>4.71 || sol[index6]>4.71)
+            std::cout<<"BEWARE : invalid :"<<joint4 + j * 2.0 * M_PI<<" "<<joint6 + i * 2.0 * M_PI<<std::endl;
+        }
+      }
+    }
+  }
   return joint_poses.size() > 0;
 }
 
