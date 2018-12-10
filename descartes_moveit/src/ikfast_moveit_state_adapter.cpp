@@ -108,7 +108,7 @@ bool descartes_moveit::IkFastMoveitStateAdapter::getAllIK(const Eigen::Affine3d&
           joint_poses.push_back(sol);
           //!Okay I am not positive descartes will not output solutions past our joint limits!
           //! This should warn us but let's be careful
-          if(sol[index4]>4.71 || sol[index6]>4.71)
+          if(sol[index4]>4.71 || sol[last_index]>4.71)
             std::cout<<"BEWARE : invalid :"<<joint4 + j * 2.0 * M_PI<<" "<<joint6 + i * 2.0 * M_PI<<std::endl;
         }
       }
